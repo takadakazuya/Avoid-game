@@ -20,7 +20,6 @@ let wakugai = {
         yoko: canvas.w - player.w
     }
     //弾幕の玉セットアップ
-    //エラーが出る
 class tama {
     constructor(x, y, w, h, vec_x, vec_y) {
         this.x = x;
@@ -34,7 +33,7 @@ class tama {
 
 let teki = []
     //セットアップ
-for (let i = 0; i <= 10; i++) {
+for (let i = 0; i <= 15; i++) {
 
     //範囲外出たときの再処理
     function saisyori(i) {
@@ -148,8 +147,8 @@ function draw() {
         let y_a = player.y + player.h / 2
         let a = (x_a - teki[i].x) ** 2;
         let b = (y_a - teki[i].y) ** 2;
-        let r = (teki[i].w + player.w / 2 - 5) ** 2;
-        if (a + b <= r) {
+        let r = (teki[i].w / 2 + (player.w / 2) - 3) ** 2;
+        if (a + b <= r && katen > 200) {
             //ゲームオーバー用
             let $gameover = document.getElementById("gameover");
             let $score = document.getElementById("score");
