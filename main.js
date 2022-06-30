@@ -32,7 +32,8 @@ class tama {
 }
 
 let teki = []
-    //セットアップ
+let jousyou = 0; //速度を徐々に早くするやつ。
+//セットアップ
 for (let i = 0; i <= 15; i++) {
 
     //範囲外出たときの再処理
@@ -45,11 +46,11 @@ for (let i = 0; i <= 15; i++) {
                 x_s = 10 + Math.random() * (canvas.w - 20);
                 y_s = 10;
                 if (x_s > (canvas.w / 2)) {
-                    vec_x = -(Math.ceil(Math.random() * 2));
-                    vec_y = Math.ceil(Math.random() * 2);
+                    vec_x = -(Math.ceil(Math.random() * 2) + jousyou);
+                    vec_y = Math.ceil(Math.random() * 2) + jousyou;
                 } else {
-                    vec_x = Math.ceil(Math.random() * 2);
-                    vec_y = Math.ceil(Math.random() * 2);
+                    vec_x = Math.ceil(Math.random() * 2) + jousyou;
+                    vec_y = Math.ceil(Math.random() * 2) + jousyou;
                 }
                 break;
             case 2:
@@ -57,11 +58,11 @@ for (let i = 0; i <= 15; i++) {
                 x_s = 10;
                 y_s = 10 + Math.random() * (canvas.h - 20);
                 if (y_s > (canvas.h / 2)) {
-                    vec_x = Math.ceil(Math.random() * 2);
-                    vec_y = -(Math.ceil(Math.random() * 2));
+                    vec_x = Math.ceil(Math.random() * 2) + jousyou;
+                    vec_y = -(Math.ceil(Math.random() * 2) + jousyou);
                 } else {
-                    vec_x = Math.ceil(Math.random() * 2);
-                    vec_y = Math.ceil(Math.random() * 2);
+                    vec_x = Math.ceil(Math.random() * 2) + jousyou;
+                    vec_y = Math.ceil(Math.random() * 2) + jousyou;
                 }
                 break;
             case 3:
@@ -69,11 +70,11 @@ for (let i = 0; i <= 15; i++) {
                 x_s = canvas.w - 10;
                 y_s = 10 + Math.random() * (canvas.h - 20);
                 if (y_s > (canvas.h / 2)) {
-                    vec_x = -(Math.ceil(Math.random() * 2));
-                    vec_y = -(Math.ceil(Math.random() * 2));
+                    vec_x = -(Math.ceil(Math.random() * 2) + jousyou);
+                    vec_y = -(Math.ceil(Math.random() * 2) + jousyou);
                 } else {
-                    vec_x = -(Math.ceil(Math.random() * 2));
-                    vec_y = Math.ceil(Math.random() * 2);
+                    vec_x = -(Math.ceil(Math.random() * 2) + jousyou);
+                    vec_y = Math.ceil(Math.random() * 2) + jousyou;
                 }
                 break;
             case 4:
@@ -81,11 +82,11 @@ for (let i = 0; i <= 15; i++) {
                 x_s = 10 + Math.random() * (canvas.w - 20);
                 y_s = canvas.h - 10;
                 if (x_s > (canvas.w / 2)) {
-                    vec_x = -(Math.ceil(Math.random() * 2));
-                    vec_y = -(Math.ceil(Math.random() * 2));
+                    vec_x = -(Math.ceil(Math.random() * 2) + jousyou);
+                    vec_y = -(Math.ceil(Math.random() * 2) + jousyou);
                 } else {
-                    vec_x = Math.ceil(Math.random() * 2);
-                    vec_y = -(Math.ceil(Math.random() * 2));
+                    vec_x = Math.ceil(Math.random() * 2) + jousyou;
+                    vec_y = -(Math.ceil(Math.random() * 2) + jousyou);
                 }
                 break;
             default:
@@ -93,11 +94,11 @@ for (let i = 0; i <= 15; i++) {
                 x_s = 10 + Math.random() * (canvas.w - 20);
                 y_s = 10;
                 if (x_s > (canvas.w / 2)) {
-                    vec_x = -(Math.ceil(Math.random() * 2));
-                    vec_y = Math.ceil(Math.random() * 2);
+                    vec_x = -(Math.ceil(Math.random() * 2) + jousyou);
+                    vec_y = Math.ceil(Math.random() * 2) + jousyou;
                 } else {
-                    vec_x = Math.ceil(Math.random() * 2);
-                    vec_y = Math.ceil(Math.random() * 2);
+                    vec_x = Math.ceil(Math.random() * 2) + jousyou;
+                    vec_y = Math.ceil(Math.random() * 2) + jousyou;
                 }
                 break;
         }
@@ -147,7 +148,7 @@ function draw() {
         let y_a = player.y + player.h / 2
         let a = (x_a - teki[i].x) ** 2;
         let b = (y_a - teki[i].y) ** 2;
-        let r = (teki[i].w / 2 + (player.w / 2) - 3) ** 2;
+        let r = (teki[i].w / 2 + ((player.w / 2) - 3)) ** 2;
         if (a + b <= r && katen > 200) {
             //ゲームオーバー用
             let $gameover = document.getElementById("gameover");
@@ -174,6 +175,13 @@ function draw() {
         textSize(50);
         text("クリア!!", 100, 200); //クリア一応
         draw = false
+    }
+    //ここまで
+    //ここから追加要素
+    //スコアが上がるとちょっと早くなる
+    if (katen % 2000 == 0 && jousyou < 10) {
+        //2000点づつ上がる
+        jousyou += 0.2 //0.2上がる
     }
     //ここまで
 }
